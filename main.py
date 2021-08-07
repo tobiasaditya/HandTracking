@@ -48,6 +48,7 @@ kelingking = False
 
 def input_data():
     hasil_angka = 404
+    action = 'Init'
     while True:
         jempol = False
         telunjuk = False
@@ -97,8 +98,22 @@ def input_data():
         #cv.putText(frame_resized,str(int(fps)),(10,70),cv.FONT_HERSHEY_COMPLEX,3,(0,0,255),3)
         r.set("OPENCV",hasil_angka)
 
+        #Teks action
+        if hasil_angka == 1:
+            action = 'START'
+        elif hasil_angka == 2:
+            action = 'PAUSE'
+        elif hasil_angka == 3:
+            action = 'RESUME'
+        elif hasil_angka == 6:
+            action = 'STOP'
+        elif hasil_angka == 5:
+            action = 'EXIT'
+
         #Tampilin hasil angka
-        cv.putText(frame_resized,str(hasil_angka),(10,150),cv.FONT_HERSHEY_PLAIN,3,(255,0,0),3)
+        cv.putText(frame_resized,str(hasil_angka),(10,150),cv.FONT_HERSHEY_PLAIN,2,(255,0,0),3)
+        #Tampilin action
+        cv.putText(frame_resized,f"Action : {str(action)}",(10,50),cv.FONT_HERSHEY_PLAIN,2,(255,0,0),3)
         
 
 
