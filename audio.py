@@ -7,7 +7,8 @@ import json
 r = redis.Redis()
 
 def play_song():
-    mixer.init()
+    mixer.pre_init(frequency=44100)
+    mixer.init(frequency=44100)
     mixer.music.load("Audio/bensound-hipjazz (online-audio-converter.com).wav")
     mixer.music.play()
     while True:
