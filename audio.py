@@ -29,8 +29,10 @@ def play_song():
         # elif query == 'e':
         elif data == "6" or data == "EXIT":
             # Stop the mixer
-            mixer.music.stop()
+            mixer.music.fadeout(5000)
+            #mixer.music.stop()
             break
+            
         elif data == 'VOLUME LOW':
             mixer.music.set_volume(0.1)
         elif data == 'VOLUME MID':
@@ -38,3 +40,4 @@ def play_song():
         elif data == 'VOLUME HIGH':
             mixer.music.set_volume(1)        
 
+        

@@ -32,5 +32,8 @@ def processing_result_handsign(list_jari):
         hasil_angka = "VOLUME MID"
     elif not jempol and not telunjuk and tengah and manis and kelingking:
         hasil_angka = "VOLUME HIGH"
+    elif not jempol and telunjuk and tengah and not manis and kelingking:
+        hasil_angka = "EXIT"
+    
     
     return hasil_angka
