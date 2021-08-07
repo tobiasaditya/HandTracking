@@ -25,6 +25,12 @@ def processing_result_handsign(list_jari):
 
     #Special Case hehe
     elif not jempol and not telunjuk and tengah and not manis and not kelingking:
-        hasil_angka = "FUCK YOU!"
+        hasil_angka = "RUDE!"
+    elif not jempol and not telunjuk and not tengah and not manis and kelingking:
+        hasil_angka = "VOLUME LOW"
+    elif not jempol and not telunjuk and not tengah and manis and kelingking:
+        hasil_angka = "VOLUME MID"
+    elif not jempol and not telunjuk and tengah and manis and kelingking:
+        hasil_angka = "VOLUME HIGH"
     
     return hasil_angka

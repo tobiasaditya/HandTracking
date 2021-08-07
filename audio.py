@@ -16,7 +16,8 @@ def play_song():
         # print("Press 'p' to pause, 'r' to resume")
         # print("Press 'e' to exit the program")
         # query = input("  ")
-        data = str(json.loads(data))
+        data = json.loads(data)
+        data = str(data['data'])
         # if query == 'p':
         if data == "2":
             # Pausing the music
@@ -26,8 +27,14 @@ def play_song():
             # Resuming the music
             mixer.music.unpause()
         # elif query == 'e':
-        elif data == "6":
+        elif data == "6" or data == "EXIT":
             # Stop the mixer
             mixer.music.stop()
             break
+        elif data == 'VOLUME LOW':
+            mixer.music.set_volume(0.1)
+        elif data == 'VOLUME MID':
+            mixer.music.set_volume(0.5)
+        elif data == 'VOLUME HIGH':
+            mixer.music.set_volume(1)        
 

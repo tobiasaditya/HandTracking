@@ -23,7 +23,7 @@ cap = cv.VideoCapture(0)
 mp_draw = mp.solutions.drawing_utils
 
 mp_hands = mp.solutions.hands
-hands = mp_hands.Hands(False,min_detection_confidence=0.75)
+hands = mp_hands.Hands(False,min_detection_confidence=0.9)
 #Ujung jempol, telunjuk, tengah, manis, kelingking
 tip_id = [4,8,12,16,20]
 current_time = 0
@@ -49,6 +49,8 @@ kelingking = False
 def input_data():
     hasil_angka = 404
     action = 'Init'
+    redis_data = {"data":"init"}
+    r.set("OPENCV",json.dumps(redis_data))
     while True:
         jempol = False
         telunjuk = False
@@ -96,7 +98,8 @@ def input_data():
             
 
         #cv.putText(frame_resized,str(int(fps)),(10,70),cv.FONT_HERSHEY_COMPLEX,3,(0,0,255),3)
-        r.set("OPENCV",hasil_angka)
+        redis_data['data']=hasil_angka
+        r.set("OPENCV",json.dumps(redis_data))
 
         #Teks action
         if hasil_angka == 1:
@@ -119,23 +122,28 @@ def input_data():
 
         cv.imshow("Image",frame_resized)
         if cv.waitKey(1) & 0xFF==ord('d'):
+            redis_data['data']="EXIT"
+            r.set("OPENCV",json.dumps(redis_data))
             break
     cap.release()
     cv.destroyAllWindows()
 
 def master_song():
     while True:
-        data = r.get("OPENCV")
-        data = str(json.loads(data))
+        data_redis = r.get("OPENCV")
+        data = json.loads(data_redis)
+        data = str(data['data'])
+        print(data)
         if data =="1":
             play_song()
-        elif data == "5":
+        elif data == "EXIT":
+            r.delete("OPENCV")
             break
         
 
 
-t1 = Thread(target = master_song)
-t2 = Thread(target = input_data)
+t1 = Thread(target = input_data)
+t2 = Thread(target = master_song)
 t1.start()
 t2.start()
   
